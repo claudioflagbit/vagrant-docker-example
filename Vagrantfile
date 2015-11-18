@@ -14,19 +14,14 @@ Vagrant.configure("2") do |config|
         MYSQL_PASSWORD: "root",
       }
       d.build_args = ["--tag=mysql-docker"]
-      # d.create_args = ["--name=mysql-docker"]
-      # d.remains_running = false
-      # d.cmd = ["/entrypoint.sh"]
     end
   end
   
   config.vm.define "php-docker" do |a|
     a.vm.provider "docker" do |d|
-      d.build_dir = "./php-ubuntu/"
+      d.build_dir = "./.docker/php-ubuntu/"
       d.name = "php-docker"
-      d.has_ssh = false # "true" needed for vagrant ssh
       d.expose = ["9000-9000"]
-      # d.volumes = ["/var/www/html"]
       d.vagrant_machine = "dockerdocker.dev"
       d.link("mysql-docker:mysql-docker")
       d.build_args = ["--tag=php-docker"]
@@ -37,7 +32,7 @@ Vagrant.configure("2") do |config|
   
   config.vm.define "apache-docker" do |a|
     a.vm.provider "docker" do |d|
-      d.build_dir = "./apache-ubuntu/"
+      d.build_dir = "./.docker/apache-ubuntu/"
       d.name = "apache-docker"
       d.ports = ["80:80", "443:443"] # expose to the host
       d.vagrant_machine = "dockerdocker.dev"
