@@ -1,10 +1,10 @@
 Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/var/www/html"
 
-  config.vm.define "mysql-docker" do |a|
+  config.vm.define "project-mysql" do |a|
     a.vm.provider "docker" do |d|
       d.image = "mysql:5.5"
-      d.name = "mysql-docker"
+      d.name = "project-mysql"
       d.vagrant_machine = "dockerdocker.dev"
       d.expose = ["3306-3306"]
       d.env = {
@@ -17,27 +17,27 @@ Vagrant.configure("2") do |config|
     end
   end
   
-  config.vm.define "php-docker" do |a|
+  config.vm.define "project-php" do |a|
     a.vm.provider "docker" do |d|
       d.build_dir = "./.docker/php-ubuntu/"
-      d.name = "php-docker"
+      d.name = "project-php"
       d.expose = ["9000-9000"]
       d.vagrant_machine = "dockerdocker.dev"
-      d.link("mysql-docker:mysql-docker")
-      d.build_args = ["--tag=php-docker"]
+      d.link("project-mysql:project-mysql")
+      d.build_args = ["--tag=project-php"]
       d.create_args = ["--volume=/var/www/html"]
       d.remains_running = false
     end
   end
   
-  config.vm.define "apache-docker" do |a|
+  config.vm.define "project-apache" do |a|
     a.vm.provider "docker" do |d|
       d.build_dir = "./.docker/apache-ubuntu/"
-      d.name = "apache-docker"
+      d.name = "project-apache"
       d.ports = ["80:80", "443:443"] # expose to the host
       d.vagrant_machine = "dockerdocker.dev"
-      d.link("php-docker:php-docker")
-      d.build_args = ["--tag=apache-docker"]
+      d.link("project-php:project-php")
+      d.build_args = ["--tag=project-apache"]
       d.create_args = ["--hostname=dockerdocker.dev"]
     end
   end
