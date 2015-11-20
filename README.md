@@ -1,13 +1,21 @@
 # Installation
 
-Already Docker and Vagrant installed?
+Be sure that the ports 80 and 443 are not blocked by another application before you start this example.
+
+Have you already Docker and Vagrant installed?
 
 ```
 cd /this/projects/path/
 vagrant up --provider=docker --no-parallel
 ```
 
-Call http://dockerdocker.dev in your browser. That's all.
+Call http://localhost in your browser. That's all.
+
+Stop the containers with
+
+```
+vagrant halt
+```
 
 Destroy it with
 
