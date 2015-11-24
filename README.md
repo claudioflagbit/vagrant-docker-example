@@ -32,10 +32,3 @@ docker exec -it {container_name} {command}
 Working directly in a container:
 
 docker exec -it {container_name} /bin/bash
-
-## Known issues
-
-### mysql-container doesn't start on first vagrant up
-
-Most of the time it starts on the second try. This example project works with the official MySQL Docker-Image, so an alternative would be creating a custom Image.
-

@@ -35,12 +35,12 @@ class Foo
 
 
 try {
-    $pdo = new PDO('mysql:host=project-mysql;dbname=project', 'root', 'root');
+    $pdo = new PDO('mysql:host=project-mysql;dbname=project', 'user', 'password');
     $result = $pdo->exec('CREATE TABLE `foo` (`id` INT NOT NULL AUTO_INCREMENT, `text` VARCHAR(255), PRIMARY KEY (id)) ENGINE=InnoDB');
     if (false !== $result) {
-      $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'foo\')');
-      $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'bar\')');
-      $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'baz\')');
+        $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'foo\')');
+        $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'bar\')');
+        $pdo->exec('INSERT INTO `foo` (`text`) VALUES (\'baz\')');
     }
 
     $stmt = $pdo->query('SELECT * FROM `foo`');

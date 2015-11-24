@@ -9,8 +9,8 @@ Vagrant.configure("2") do |config|
       d.env = {
         MYSQL_ROOT_PASSWORD: "root",
         MYSQL_DATABASE: "project",
-        MYSQL_USER: "root",
-        MYSQL_PASSWORD: "root",
+        MYSQL_USER: "user",
+        MYSQL_PASSWORD: "password",
       }
     end
   end
@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
       d.name = "project-php"
       d.expose = ["9000-9000"]
       d.link("project-mysql:project-mysql")
+      d.build_args = ["--tag=project-php"]
     end
   end
   
@@ -30,6 +31,7 @@ Vagrant.configure("2") do |config|
       d.name = "project-apache"
       d.ports = ["80:80", "443:443"]
       d.link("project-php:project-php")
+      d.build_args = ["--tag=project-apache"]
     end
   end
 end
